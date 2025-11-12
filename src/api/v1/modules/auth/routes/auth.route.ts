@@ -1,7 +1,7 @@
 import express from "express";
 import { ControllerProvider } from "../../../ControllerProvider";
 import { validateBody } from "../../../common/middlewares/validate.middleware";
-import { registerUserSchema } from "../../users/validations/user.validation";
+import { registerUserSchema, updatePasswordSchema } from "../../users/validations/user.validation";
 import { asyncHandler } from "../../../common/utils/asyncHandler";
 import { authenticateJWT } from "../../../common/middlewares/auth.middleware";
 
@@ -33,6 +33,7 @@ router
   .route("/change-password")
   .post(
     authenticateJWT,
+    validateBody(updatePasswordSchema),
     asyncHandler(authController.changePassword.bind(authController))
   );
 

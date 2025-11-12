@@ -10,14 +10,14 @@ export class MongoUserRepository implements IUserRepository {
     return this.toEntity(user);
   }
 
-  async findById(id: string, isPasswordRequired: boolean = false): Promise<IUserEntity | null> {
+  async findById(id: string, isRequiredSensitiveData: boolean = false): Promise<IUserEntity | null> {
     const user = await User.findById(id);
-    return user ? this.toEntity(user, isPasswordRequired) : null;
+    return user ? this.toEntity(user, isRequiredSensitiveData) : null;
   }
 
-  async findByEmail(email: string, isPasswordRequired: boolean = false): Promise<IUserEntity | null> {
+  async findByEmail(email: string, isRequiredSensitiveData: boolean = false): Promise<IUserEntity | null> {
     const user = await User.findOne({ email });
-    return user ? this.toEntity(user, isPasswordRequired) : null;
+    return user ? this.toEntity(user, isRequiredSensitiveData) : null;
   }
 
   async findByUsername(username: string): Promise<IUserEntity | null> {
@@ -59,7 +59,7 @@ export class MongoUserRepository implements IUserRepository {
     return !!user;
   }
 
-  private toEntity(userDoc: any, isPasswordRequired: boolean = false): IUserEntity {
+  private toEntity(userDoc: any, isRequiredSensitiveData: boolean = false): IUserEntity {
     const obj = userDoc.toObject ? userDoc.toObject() : userDoc;
 
     // Destructure sensitive fields
@@ -70,8 +70,9 @@ export class MongoUserRepository implements IUserRepository {
       id: _id?.toString(),
     };
 
-    if (isPasswordRequired && password) {
+    if (isRequiredSensitiveData) {
       baseEntity.password = password;
+      baseEntity.refreshToken = refreshToken;
     }
 
     return baseEntity;

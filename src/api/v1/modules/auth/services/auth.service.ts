@@ -121,6 +121,9 @@ export class AuthService implements IAuthService {
     const user = await RepositoryProvider.userRepository.findById(decoded.id, true);
     if (!user) throw new ApiError("Invalid refresh token", 401);
 
+    console.log("Stored refresh token:", user.refreshToken);
+    console.log("Incoming refresh token:", incomingRefreshToken);
+
     if (incomingRefreshToken !== user.refreshToken) {
       throw new ApiError("Refresh token expired or already used", 401);
     }

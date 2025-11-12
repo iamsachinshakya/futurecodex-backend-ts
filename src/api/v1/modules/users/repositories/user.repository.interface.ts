@@ -2,8 +2,8 @@ import { ICreateUser, IUpdateUser, IUserEntity } from "../models/user.model.inte
 
 export interface IUserRepository {
     create(data: ICreateUser): Promise<IUserEntity>;
-    findById(id: string, isPasswordRequired?: boolean): Promise<IUserEntity | null>;
-    findByEmail(email: string, isPasswordRequired?: boolean): Promise<IUserEntity | null>;
+    findById(id: string, isRequiredSensitiveData?: boolean): Promise<IUserEntity | null>;
+    findByEmail(email: string, isRequiredSensitiveData?: boolean): Promise<IUserEntity | null>;
     findByUsername(username: string): Promise<IUserEntity | null>;
     findByEmailOrUsername(params: { email?: string; username?: string }): Promise<IUserEntity | null>;
     findAll(sort?: Record<string, 1 | -1>): Promise<IUserEntity[]>;
