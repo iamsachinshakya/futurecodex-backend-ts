@@ -2,7 +2,7 @@ import { IBlogRepository } from "./modules/blog/repositories/blog.repository.int
 import { MongoBlogRepository } from "./modules/blog/repositories/mongodb/blog.repository";
 import { ICategoryRepository } from "./modules/category/repositories/category.repository.interface";
 import { MongoCategoryRepository } from "./modules/category/repositories/mongodb/category.repository";
-import { MongoUserRepository } from "./modules/users/repositories/mongoose/user.repository";
+import { MongoUserRepository } from "./modules/users/repositories/mongodb/user.repository";
 import { IUserRepository } from "./modules/users/repositories/user.repository.interface";
 
 export class RepositoryProvider {

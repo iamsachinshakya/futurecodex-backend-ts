@@ -59,6 +59,57 @@ export class MongoUserRepository implements IUserRepository {
     return !!user;
   }
 
+
+  async addFollower(targetUserId: string, followerId: string): Promise<void> {
+    await User.findByIdAndUpdate(
+      targetUserId,
+      { $addToSet: { followers: followerId } },
+      { new: true }
+    );
+  }
+
+  async removeFollower(targetUserId: string, followerId: string): Promise<void> {
+    await User.findByIdAndUpdate(
+      targetUserId,
+      { $pull: { followers: followerId } },
+      { new: true }
+    );
+  }
+
+  async addFollowing(userId: string, targetUserId: string): Promise<void> {
+    await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { following: targetUserId } },
+      { new: true }
+    );
+  }
+
+  async removeFollowing(userId: string, targetUserId: string): Promise<void> {
+    await User.findByIdAndUpdate(
+      userId,
+      { $pull: { following: targetUserId } },
+      { new: true }
+    );
+  }
+
+  async findFollowers(userId: string): Promise<IUserEntity[]> {
+    const user = await User.findById(userId)
+      .populate("followers", "fullName username avatar")
+      .lean();
+
+    if (!user) return [];
+    return (user.followers as unknown as IUserEntity[]) || [];
+  }
+
+  async findFollowing(userId: string): Promise<IUserEntity[]> {
+    const user = await User.findById(userId)
+      .populate("following", "fullName username avatar")
+      .lean();
+
+    if (!user) return [];
+    return (user.following as unknown as IUserEntity[]) || [];
+  }
+
   private toEntity(userDoc: any, isRequiredSensitiveData: boolean = false): IUserEntity {
     const obj = userDoc.toObject ? userDoc.toObject() : userDoc;
 

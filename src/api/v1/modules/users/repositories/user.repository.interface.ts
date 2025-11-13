@@ -13,4 +13,13 @@ export interface IUserRepository {
     updateAccountDetails(userId: string, updates: Partial<IUpdateUser>): Promise<IUserEntity | null>;
     isUsernameTaken(username: string): Promise<boolean>;
     aggregate?(pipeline: any[]): Promise<any[]>; // optional for MongoDB
+
+    addFollower(targetUserId: string, followerId: string): Promise<void>;
+    removeFollower(targetUserId: string, followerId: string): Promise<void>;
+
+    addFollowing(userId: string, targetUserId: string): Promise<void>;
+    removeFollowing(userId: string, targetUserId: string): Promise<void>;
+
+    findFollowers(userId: string): Promise<IUserEntity[]>;
+    findFollowing(userId: string): Promise<IUserEntity[]>;
 }

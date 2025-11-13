@@ -89,22 +89,6 @@ export const updateUserSchema = z.object({
     .max(500, "Bio must be at most 500 characters long")
     .optional(),
 
-  social: z
-    .object({
-      twitter: z.string().url("Twitter must be a valid URL").optional(),
-      linkedin: z.string().url("LinkedIn must be a valid URL").optional(),
-      github: z.string().url("GitHub must be a valid URL").optional(),
-      website: z.string().url("Website must be a valid URL").optional(),
-    })
-    .optional(),
-
-  preferences: z
-    .object({
-      emailNotifications: z.boolean().optional(),
-      marketingUpdates: z.boolean().optional(),
-      twoFactorAuth: z.boolean().optional(),
-    })
-    .optional(),
 })
   .refine(
     (data) => Object.values(data).some((v) => v !== undefined && v !== null),
@@ -153,3 +137,25 @@ export const updatePasswordSchema = z.object({
     .regex(/[@$!%*?&#]/, "Password must contain at least one special character (@$!%*?&#)"),
 });
 
+// Social links schema
+export const socialLinksSchema = z
+  .object({
+    github: z.url().nullable().optional(),
+    linkedin: z.url().nullable().optional(),
+    twitter: z.url().nullable().optional(),
+    website: z.url().nullable().optional(),
+  })
+  .refine((data) => Object.values(data).some((value) => value !== null && value !== undefined && value !== ""), {
+    message: "At least one social link must be provided",
+  });
+
+// User preferences schema
+export const userPreferencesSchema = z
+  .object({
+    emailNotifications: z.boolean().optional(),
+    marketingUpdates: z.boolean().optional(),
+    twoFactorAuth: z.boolean().optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one preference must be provided",
+  });
