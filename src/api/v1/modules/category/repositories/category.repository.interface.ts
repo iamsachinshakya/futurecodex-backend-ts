@@ -48,4 +48,20 @@ export interface ICategoryRepository {
      * @returns Category if found, otherwise null
      */
     findBySlug?(slug: string): Promise<ICategoryEntity | null>;
+
+    /**
+   * ⬆️ Increment the post count for a category
+   * - Typically used when a new blog post is created under this category.
+   * @param categoryId - The ID of the category whose post count should be increased
+   * @returns A promise that resolves when the operation is complete
+   */
+    incrementPostCount(categoryId: string): Promise<void>;
+
+    /**
+     * ⬇️ Decrement the post count for a category
+     * - Typically used when a blog post is deleted or moved out of this category.
+     * @param categoryId - The ID of the category whose post count should be decreased
+     * @returns A promise that resolves when the operation is complete
+     */
+    decrementPostCount(categoryId: string): Promise<void>;
 }

@@ -31,4 +31,14 @@ export interface ICategoryService {
      * @param soft - Soft delete by default, hard delete if false
      */
     deleteCategory(categoryId: string, soft?: boolean): Promise<boolean>;
+
+    /**
+    * Increment post count when a blog is added under this category
+    */
+    incrementPostCount(categoryId: string): Promise<void>;
+
+    /**
+     * Decrement post count when a blog is removed from this category
+     */
+    decrementPostCount(categoryId: string): Promise<void>;
 }

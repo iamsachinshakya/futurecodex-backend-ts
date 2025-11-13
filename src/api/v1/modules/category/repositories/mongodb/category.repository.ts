@@ -79,6 +79,22 @@ export class MongoCategoryRepository implements ICategoryRepository {
     }
 
     /**
+  * Increment the post count for a category
+  * @param categoryId - ID of the category
+  */
+    async incrementPostCount(categoryId: string): Promise<void> {
+        await Category.findByIdAndUpdate(categoryId, { $inc: { postCount: 1 } });
+    }
+
+    /**
+     * Decrement the post count for a category
+     * @param categoryId - ID of the category
+     */
+    async decrementPostCount(categoryId: string): Promise<void> {
+        await Category.findByIdAndUpdate(categoryId, { $inc: { postCount: -1 } });
+    }
+
+    /**
      * Convert MongoDB document → Entity
      */
     private toEntity(doc: ICategoryMongo): ICategoryEntity {

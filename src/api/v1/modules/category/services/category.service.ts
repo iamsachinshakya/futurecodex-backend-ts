@@ -109,4 +109,26 @@ export class CategoryService implements ICategoryService {
 
         return RepositoryProvider.categoryRepository.delete(categoryId, soft);
     }
+
+    /**
+    * ✅ Increment post count when a blog is added under this category
+    * @param categoryId - The ID of the category
+    */
+    async incrementPostCount(categoryId: string): Promise<void> {
+        const existing = await RepositoryProvider.categoryRepository.findById(categoryId);
+        if (!existing) throw new ApiError("Category not found", 404);
+
+        await RepositoryProvider.categoryRepository.incrementPostCount(categoryId);
+    }
+
+    /**
+     * ✅ Decrement post count when a blog is removed from this category
+     * @param categoryId - The ID of the category
+     */
+    async decrementPostCount(categoryId: string): Promise<void> {
+        const existing = await RepositoryProvider.categoryRepository.findById(categoryId);
+        if (!existing) throw new ApiError("Category not found", 404);
+
+        await RepositoryProvider.categoryRepository.decrementPostCount(categoryId);
+    }
 }
