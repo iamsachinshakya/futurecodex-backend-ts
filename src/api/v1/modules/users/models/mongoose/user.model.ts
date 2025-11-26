@@ -1,6 +1,6 @@
 // src/models/mongoose/user.model.ts
 import { Schema, model, Model, Types, Document } from "mongoose";
-import { IUserEntity, UserRole } from "../user.model.interface";
+import { IUserEntity, UserRole, UserStatus } from "../user.model.interface";
 
 /**
  * MongoDB-specific user interface
@@ -22,6 +22,7 @@ const userSchema = new Schema<IUserMongo>(
     avatar: { type: String, default: null },
     bio: { type: String, maxlength: 500, default: "" },
     role: { type: String, enum: Object.values(UserRole), default: UserRole.USER },
+    status: { type: String, enum: Object.values(UserStatus), default: UserStatus.ACTIVE },
     isVerified: { type: Boolean, default: false },
     socialLinks: {
       twitter: { type: String, default: null },

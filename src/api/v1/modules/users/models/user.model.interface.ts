@@ -7,6 +7,11 @@ export enum UserRole {
     ADMIN = "admin",
 }
 
+export enum UserStatus {
+    ACTIVE = "active",
+    INACTIVE = "inactive"
+}
+
 /**
  * A database-agnostic user model interface.
  * Can be used across MongoDB, PostgreSQL, or any ORM.
@@ -26,6 +31,7 @@ export interface IUserEntity {
     following: string[];
     refreshToken: string | null;
     preferences: IUserPreferences
+    status: UserStatus,
     createdAt: Date;
     updatedAt: Date;
     lastLogin: Date | null;
@@ -57,6 +63,7 @@ export interface IAuthUser {
     email: string,
     username: string,
     fullName: string,
+    active: UserStatus
     role: UserRole,
 }
 
