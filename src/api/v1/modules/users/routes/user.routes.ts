@@ -126,18 +126,6 @@ userRouter.patch(
 );
 
 /**
- * @route   GET /api/v1/users/preferences
- * @desc    Get user preferences
- * @access  Private
- */
-userRouter.get(
-  "/preferences",
-  authenticateJWT,
-  requirePermission(PERMISSIONS.USER.READ),
-  asyncHandler(userController.getPreferences.bind(userController))
-);
-
-/**
  * @route   GET /api/v1/users/:id
  * @desc    Get user by ID
  * @access  Private

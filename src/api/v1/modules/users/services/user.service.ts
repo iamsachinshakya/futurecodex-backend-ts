@@ -8,15 +8,17 @@ import {
   ISocialLinks,
 } from "../../users/models/user.model.interface";
 import { IUserService } from "./user.service.interface";
+import { ErrorCode } from "../../../common/constants.ts/errorCodes";
 
 export class UserService implements IUserService {
+
   async getAllUsers(): Promise<IUserEntity[]> {
     return await RepositoryProvider.userRepository.findAll();
   }
 
   async getUserById(userId: string): Promise<IUserEntity> {
     const user = await RepositoryProvider.userRepository.findById(userId);
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return user;
   }
 
@@ -24,6 +26,7 @@ export class UserService implements IUserService {
     userId: string,
     body: IUpdateUser
   ): Promise<IUserEntity | null> {
+
     const allowedFields: (keyof IUpdateUser)[] = [
       "fullName",
       "email",
@@ -44,7 +47,11 @@ export class UserService implements IUserService {
     }
 
     if (Object.keys(updates).length === 0) {
-      throw new ApiError("At least one valid field is required to update", 400);
+      throw new ApiError(
+        "At least one valid field is required to update",
+        400,
+        ErrorCode.BAD_REQUEST
+      );
     }
 
     if (updates.username) {
@@ -52,7 +59,14 @@ export class UserService implements IUserService {
         await RepositoryProvider.userRepository.isUsernameTaken(
           updates.username.toLowerCase()
         );
-      if (existingUser) throw new ApiError("Username already taken", 409);
+
+      if (existingUser) {
+        throw new ApiError(
+          "Username already taken",
+          409,
+          ErrorCode.USER_ALREADY_EXISTS
+        );
+      }
     }
 
     return await RepositoryProvider.userRepository.updateAccountDetails(
@@ -62,54 +76,52 @@ export class UserService implements IUserService {
   }
 
   async updateAvatar(userId: string, file: Express.Multer.File): Promise<IUserEntity> {
-    if (!file?.buffer) throw new ApiError("Avatar file is missing", 400);
+    if (!file?.buffer) throw new ApiError("Avatar file is missing", 400, ErrorCode.BAD_REQUEST);
 
     const avatar = await uploadOnCloudinary(file.buffer, userId, "avatars");
-    if (!avatar?.secure_url) throw new ApiError("Failed to upload avatar", 400);
+    if (!avatar?.secure_url) throw new ApiError("Failed to upload avatar", 400, ErrorCode.BAD_REQUEST);
 
     const user = await RepositoryProvider.userRepository.updateById(userId, {
       avatar: avatar.secure_url,
     });
-
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return user;
   }
 
   async deleteUser(userId: string): Promise<boolean> {
     const user = await RepositoryProvider.userRepository.deleteById(userId);
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return true;
   }
 
   async updateSocialLinks(userId: string, links: ISocialLinks): Promise<IUserEntity> {
     if (!links || Object.keys(links).length === 0) {
-      throw new ApiError("At least one social link is required", 400);
+      throw new ApiError("At least one social link is required", 400, ErrorCode.BAD_REQUEST);
     }
 
     const user = await RepositoryProvider.userRepository.updateById(userId, {
       socialLinks: links,
     });
 
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return user;
   }
 
   async followUser(userId: string, targetUserId: string): Promise<void> {
-    if (userId === targetUserId) {
-      throw new ApiError("You cannot follow yourself", 400);
-    }
+
+    if (userId === targetUserId) throw new ApiError("You cannot follow yourself", 400, ErrorCode.BAD_REQUEST);
+
 
     const [user, targetUser] = await Promise.all([
       RepositoryProvider.userRepository.findById(userId),
       RepositoryProvider.userRepository.findById(targetUserId),
     ]);
 
-    if (!user) throw new ApiError("User not found", 404);
-    if (!targetUser) throw new ApiError("Target user not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
+    if (!targetUser) throw new ApiError("Target user not found", 404, ErrorCode.USER_NOT_FOUND);
 
-    // Prevent duplicate follow
-    if (targetUser.followers?.some(f => f.toString() === userId)) {
-      throw new ApiError("Already following this user", 409);
+    if (targetUser.followers?.some((f) => f.toString() === userId)) {
+      throw new ApiError("Already following this user", 409, ErrorCode.BAD_REQUEST);
     }
 
     await Promise.all([
@@ -119,8 +131,9 @@ export class UserService implements IUserService {
   }
 
   async unfollowUser(userId: string, targetUserId: string): Promise<void> {
+
     if (userId === targetUserId) {
-      throw new ApiError("You cannot unfollow yourself", 400);
+      throw new ApiError("You cannot unfollow yourself", 400, ErrorCode.BAD_REQUEST);
     }
 
     const [user, targetUser] = await Promise.all([
@@ -128,8 +141,8 @@ export class UserService implements IUserService {
       RepositoryProvider.userRepository.findById(targetUserId),
     ]);
 
-    if (!user) throw new ApiError("User not found", 404);
-    if (!targetUser) throw new ApiError("Target user not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
+    if (!targetUser) throw new ApiError("Target user not found", 404, ErrorCode.USER_NOT_FOUND);
 
     await Promise.all([
       RepositoryProvider.userRepository.removeFollower(targetUserId, userId),
@@ -146,21 +159,22 @@ export class UserService implements IUserService {
   }
 
   async updatePreferences(userId: string, preferences: IUserPreferences): Promise<IUserEntity> {
+
     if (!preferences || Object.keys(preferences).length === 0) {
-      throw new ApiError("Preferences object cannot be empty", 400);
+      throw new ApiError("Preferences object cannot be empty", 400, ErrorCode.BAD_REQUEST);
     }
 
     const user = await RepositoryProvider.userRepository.updateById(userId, {
       preferences,
     });
 
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return user;
   }
 
   async getPreferences(userId: string): Promise<IUserPreferences> {
     const user = await RepositoryProvider.userRepository.findById(userId);
-    if (!user) throw new ApiError("User not found", 404);
+    if (!user) throw new ApiError("User not found", 404, ErrorCode.USER_NOT_FOUND);
     return user.preferences || {};
   }
 }
