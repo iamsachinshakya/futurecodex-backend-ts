@@ -1,7 +1,7 @@
 // src/modules/comments/repositories/comment.repository.ts
 import { Types } from "mongoose";
-import { ICommentEntity } from "../../models/comment.model.interface";
-import { Comment, ICommentMongo } from "../../models/mongodb/comment.model";
+import { ICommentEntity } from "../models/comment.entity";
+import { Comment, ICommentMongo } from "../models/mongoComment.entity";
 
 export class CommentRepository {
     /**

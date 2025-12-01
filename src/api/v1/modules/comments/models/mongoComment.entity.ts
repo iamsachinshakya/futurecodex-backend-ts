@@ -1,6 +1,6 @@
 // src/models/mongoose/comment.model.ts
 import { Schema, model, Model, Types, Document } from "mongoose";
-import { ICommentEntity } from "../comment.model.interface";
+import { ICommentEntity } from "./comment.entity";
 
 /**
  * MongoDB-specific comment interface

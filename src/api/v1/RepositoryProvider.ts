@@ -3,7 +3,7 @@ import { MongoBlogRepository } from "./modules/blog/repositories/mongoBlog.repos
 import { ICategoryRepository } from "./modules/category/repositories/category.repository.interface";
 import { MongoCategoryRepository } from "./modules/category/repositories/MongoCategory.repository";
 import { ICommentRepository } from "./modules/comments/repositories/comment.repository.interface";
-import { CommentRepository } from "./modules/comments/repositories/mongodb/comment.repository";
+import { CommentRepository } from "./modules/comments/repositories/MongoComment.repository";
 import { MongoUserRepository } from "./modules/users/repositories/mongoUser.repository";
 import { IUserRepository } from "./modules/users/repositories/user.repository.interface";
 

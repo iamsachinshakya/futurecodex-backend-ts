@@ -1,6 +1,6 @@
 // src/modules/comments/services/comment.service.ts
 import { Types } from "mongoose";
-import { ICommentEntity } from "../models/comment.model.interface";
+import { ICommentEntity } from "../models/comment.entity";
 import { ICommentService } from "./comment.service.interface";
 import { ApiError } from "../../../common/utils/apiError";
 import { RepositoryProvider } from "../../../RepositoryProvider";
