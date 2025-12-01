@@ -1,6 +1,6 @@
-// src/modules/auth/interfaces/authService.interface.ts
+import { IChangePassword, ILoginCredentials, IRegisterData } from "../../users/models/user.dto";
+import { IUserEntity } from "../../users/models/user.entity";
 
-import { IRegisterData, IUserEntity, ILoginCredentials, IChangePassword } from "../../users/models/user.model.interface";
 
 export interface IAuthService {
     registerUser(

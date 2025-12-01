@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { ApiResponse } from "../../../common/utils/apiResponse";
 import { ServiceProvider } from "../../../ServiceProvider";
-import { ISocialLinks, IUpdateUserData, IUserPreferences, UsersQueryParams } from "../../users/models/user.model.interface";
+import { IUpdateUserData, IUsersQueryParams } from "../models/user.dto";
+import { ISocialLinks, IUserPreferences } from "../models/user.entity";
+import { PAGINATION_PAGE_LIMIT } from "../../../common/constants/constants";
 
 export class UserController {
 
@@ -13,15 +15,14 @@ export class UserController {
 
   //  Get all users
   async getAll(req: Request, res: Response): Promise<Response> {
-    const query: UsersQueryParams = {
+    const query: IUsersQueryParams = {
       page: Number(req.query.page) || 1,
-      limit: Number(req.query.limit) || 10,
+      limit: Number(req.query.limit) || PAGINATION_PAGE_LIMIT,
       search: (req.query.search as string) || "",
       role: (req.query.role as string) || "all",
     };
 
     const users = await ServiceProvider.userService.getAllUsers(query);
-
     return ApiResponse.success(res, "Users fetched successfully", users);
   }
 
@@ -113,9 +114,5 @@ export class UserController {
     const preferences = await ServiceProvider.userService.getPreferences(userId!);
     return ApiResponse.success(res, "Preferences fetched successfully", preferences);
   }
-
-
-
-
 
 }

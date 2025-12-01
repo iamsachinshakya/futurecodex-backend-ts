@@ -1,8 +1,9 @@
 
 import { SortOrder } from "mongoose";
-import { IRegisterData, IUpdateUserData, IUserEntity } from "../../models/user.model.interface";
-import { IUserRepository } from "../user.repository.interface";
-import { User } from "../../models/mongoose/user.model";
+import { IUserRepository } from "./user.repository.interface";
+import { User } from "../models/mongoUser.entity";
+import { IRegisterData, IUpdateUserData } from "../models/user.dto";
+import { IUserEntity } from "../models/user.entity";
 
 export class MongoUserRepository implements IUserRepository {
   async create(data: IRegisterData): Promise<IUserEntity> {

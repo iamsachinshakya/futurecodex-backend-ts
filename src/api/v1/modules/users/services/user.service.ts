@@ -7,8 +7,8 @@ import {
   IUserPreferences,
   ISocialLinks,
   ICreateUserData,
-  UsersQueryParams,
-} from "../../users/models/user.model.interface";
+  IUsersQueryParams,
+} from "../models/user.entity";
 import { IUserService } from "./user.service.interface";
 import { ErrorCode } from "../../../common/constants/errorCodes";
 import { hashPassword } from "../../auth/utils/bcrypt.util";
@@ -35,7 +35,7 @@ export class UserService implements IUserService {
 
   }
 
-  async getAllUsers(query: UsersQueryParams): Promise<UserPaginatedData> {
+  async getAllUsers(query: IUsersQueryParams): Promise<UserPaginatedData> {
     const { page = 1, limit = PAGINATION_PAGE_LIMIT, search = "", role = "all" } = query;
 
     const { data, total } = await RepositoryProvider.userRepository.findAll(

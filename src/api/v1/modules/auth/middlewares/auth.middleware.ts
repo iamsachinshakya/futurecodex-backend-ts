@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { asyncHandler } from "../../../common/utils/asyncHandler";
 import { ApiError } from "../../../common/utils/apiError";
 import { verifyToken } from "../utils/jwt.util";
-import { IAuthUser } from "../../users/models/user.model.interface";
 import { env } from "../../../../../app/config/env";
 import { ErrorCode } from "../../../common/constants/errorCodes";
+import { IAuthUser } from "../../users/models/user.dto";
 
 /**
  * Middleware: Authenticate requests using JWT

@@ -1,4 +1,4 @@
-import { IUserEntity } from "../../modules/users/models/user.model.interface";
+import { IUserEntity } from "../../modules/users/models/user.entity";
 
 export interface PaginationMeta {
     page: number;

@@ -2,7 +2,8 @@ import { env } from "../../../../../app/config/env";
 import { ErrorCode } from "../../../common/constants/errorCodes";
 import { ApiError } from "../../../common/utils/apiError";
 import { RepositoryProvider } from "../../../RepositoryProvider";
-import { IAuthUser, IRegisterData, IUserEntity, UserStatus, ILoginCredentials, IChangePassword } from "../../users/models/user.model.interface";
+import { IAuthUser, IChangePassword, ILoginCredentials, IRegisterData } from "../../users/models/user.dto";
+import { IUserEntity, UserStatus } from "../../users/models/user.entity";
 import { comparePassword, hashPassword } from "../utils/bcrypt.util";
 import {
   generateAccessToken,

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserRole, UserStatus } from "../models/user.model.interface";
+import { UserRole, UserStatus } from "../models/user.entity";
 
 /**
  * Schema: Update User

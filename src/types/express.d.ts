@@ -1,4 +1,4 @@
-import { IAuthUser } from "../api/v1/modules/users/models/user.model.interface";
+import { IAuthUser } from "../api/v1/modules/users/models/user.entity";
 
 declare global {
     namespace Express {

@@ -4,7 +4,7 @@ import { ICategoryRepository } from "./modules/category/repositories/category.re
 import { MongoCategoryRepository } from "./modules/category/repositories/mongodb/category.repository";
 import { ICommentRepository } from "./modules/comments/repositories/comment.repository.interface";
 import { CommentRepository } from "./modules/comments/repositories/mongodb/comment.repository";
-import { MongoUserRepository } from "./modules/users/repositories/mongodb/user.repository";
+import { MongoUserRepository } from "./modules/users/repositories/mongoUser.repository";
 import { IUserRepository } from "./modules/users/repositories/user.repository.interface";
 
 export class RepositoryProvider {

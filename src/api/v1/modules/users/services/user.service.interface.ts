@@ -1,11 +1,11 @@
 import { UserPaginatedData } from "../../../common/models/pagination";
-import { IUpdateUserData, IUserEntity, IUserPreferences, ISocialLinks, ICreateUserData, UsersQueryParams } from "../../users/models/user.model.interface";
+import { IUpdateUserData, IUserEntity, IUserPreferences, ISocialLinks, ICreateUserData, IUsersQueryParams } from "../models/user.entity";
 
 export interface IUserService {
     /**
      * Fetch all users
      */
-    getAllUsers(query: UsersQueryParams): Promise<UserPaginatedData>
+    getAllUsers(query: IUsersQueryParams): Promise<UserPaginatedData>
     /**
      * Get a single user by ID
      */

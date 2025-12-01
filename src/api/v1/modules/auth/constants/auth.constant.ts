@@ -1,4 +1,4 @@
-import { UserRole } from "../../users/models/user.model.interface";
+import { UserRole } from "../../users/models/user.entity";
 
 export const PERMISSIONS = {
     USER: {
