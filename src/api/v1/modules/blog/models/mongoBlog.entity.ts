@@ -1,6 +1,6 @@
 // src/models/mongoose/blog.model.ts
 import { Schema, model, Model, Types, Document } from "mongoose";
-import { IBlogPostEntity, IBlogPostStatus, IBlogPostVisibility } from "../blog.model.interface";
+import { IBlogPostEntity, IBlogPostStatus, IBlogPostVisibility } from "./blog.entity";
 
 /**
  * MongoDB-specific Blog Post interface

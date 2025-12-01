@@ -1,13 +1,10 @@
 import slugify from "slugify";
 import { ApiError } from "../../../common/utils/apiError";
 import { RepositoryProvider } from "../../../RepositoryProvider";
-import {
-    IBlogPostEntity,
-    IBlogQueryOptions,
-    IBlogPostStatus,
-    IBlogPostVisibility,
-} from "../models/blog.model.interface";
+
 import { IBlogService } from "../services/blog.service.interface";
+import { IBlogPostEntity, IBlogPostStatus, IBlogPostVisibility } from "../models/blog.entity";
+import { IBlogQueryOptions } from "../models/blog.dto";
 
 export class BlogService implements IBlogService {
     // ✅ Create a new blog post

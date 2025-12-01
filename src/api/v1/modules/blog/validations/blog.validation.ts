@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { IBlogPostStatus, IBlogPostVisibility } from "../models/blog.model.interface";
+import { IBlogPostStatus, IBlogPostVisibility } from "../models/blog.entity";
 
 /**
  * ✳️ Featured Image Schema

@@ -2,8 +2,9 @@
 import { Request, Response } from "express";
 import { ApiResponse } from "../../../common/utils/apiResponse";
 import { ServiceProvider } from "../../../ServiceProvider";
-import { IBlogPostEntity, IBlogQueryOptions } from "../models/blog.model.interface";
 import { IBlogController } from "./blog.controller.interface";
+import { IBlogPostEntity } from "../models/blog.entity";
+import { IBlogQueryOptions } from "../models/blog.dto";
 
 export class BlogController implements IBlogController {
     // ✅ Create a new blog post

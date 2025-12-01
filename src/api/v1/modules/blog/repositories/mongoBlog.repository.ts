@@ -1,7 +1,8 @@
 import { SortOrder, Types } from "mongoose";
-import { IBlogPostEntity, IBlogQueryOptions, IBlogPostStatus } from "../../models/blog.model.interface";
-import { Blog } from "../../models/mongodb/blog.model";
-import { IBlogRepository } from "../blog.repository.interface";
+import { IBlogRepository } from "./blog.repository.interface";
+import { IBlogPostEntity, IBlogPostStatus } from "../models/blog.entity";
+import { Blog } from "../models/mongoBlog.entity";
+import { IBlogQueryOptions } from "../models/blog.dto";
 
 export class MongoBlogRepository implements IBlogRepository {
     async create(data: Partial<IBlogPostEntity>): Promise<IBlogPostEntity> {

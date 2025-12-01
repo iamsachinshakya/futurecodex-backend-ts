@@ -1,4 +1,5 @@
-import { IBlogPostEntity, IBlogQueryOptions } from "../models/blog.model.interface";
+import { IBlogQueryOptions } from "../models/blog.dto";
+import { IBlogPostEntity } from "../models/blog.entity";
 
 export interface IBlogRepository {
     /**
