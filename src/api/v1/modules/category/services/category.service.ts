@@ -1,16 +1,14 @@
 // src/modules/categories/services/category.service.ts
 import { Types } from "mongoose";
 import slugify from "slugify";
-import {
-    ICategoryEntity,
-    ICreateCategory,
-    IUpdateCategory,
-} from "../models/category.model.interface";
+
 import { ICategoryService } from "./category.service.interface";
 import { RepositoryProvider } from "../../../RepositoryProvider";
 import { ApiError } from "../../../common/utils/apiError";
 import { uploadOnCloudinary } from "../../../common/utils/cloudinary.util";
 import { generateShortId } from "../../../common/utils/common.util";
+import { ICategoryEntity } from "../models/category.entity";
+import { ICreateCategory, IUpdateCategory } from "../models/category.dto";
 
 export class CategoryService implements ICategoryService {
     /**

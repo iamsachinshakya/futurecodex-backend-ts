@@ -1,6 +1,5 @@
-// src/models/mongoose/category.model.ts
 import { Schema, model, Model, Types, Document } from "mongoose";
-import { ICategoryEntity } from "../category.model.interface";
+import { ICategoryEntity } from "./category.entity";
 
 /**
  * MongoDB-specific category interface
@@ -23,10 +22,10 @@ const categorySchema = new Schema<ICategoryMongo>(
         postCount: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true },
     },
-    { timestamps: true } // createdAt & updatedAt
+    { timestamps: true }
 );
 
-// Optional indexes for performance
+// indexes for performance
 categorySchema.index({ name: 1, slug: 1 });
 
 export const Category: Model<ICategoryMongo> =

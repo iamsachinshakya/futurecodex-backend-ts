@@ -1,9 +1,9 @@
-// src/modules/categories/controllers/category.controller.ts
 import { Request, Response } from "express";
 import { ServiceProvider } from "../../../ServiceProvider";
 import { ApiResponse } from "../../../common/utils/apiResponse";
-import { ICategoryEntity, ICreateCategory, IUpdateCategory } from "../models/category.model.interface";
 import { ICategoryController } from "./category.controller.interface";
+import { ICategoryEntity } from "../models/category.entity";
+import { ICreateCategory, IUpdateCategory } from "../models/category.dto";
 
 export class CategoryController implements ICategoryController {
     // ✅ Get all categories with optional filters

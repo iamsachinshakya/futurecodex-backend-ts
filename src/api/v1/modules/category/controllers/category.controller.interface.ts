@@ -1,4 +1,3 @@
-// src/modules/categories/controllers/category.controller.interface.ts
 import { Request, Response } from "express";
 
 export interface ICategoryController {

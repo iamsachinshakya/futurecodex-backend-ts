@@ -1,8 +1,8 @@
 // src/modules/categories/repositories/mongoCategory.repository.ts
 import { Types } from "mongoose";
-import { ICategoryRepository } from "../category.repository.interface";
-import { ICategoryEntity } from "../../models/category.model.interface";
-import { Category, ICategoryMongo } from "../../models/mongodb/category.model";
+import { ICategoryRepository } from "./category.repository.interface";
+import { ICategoryEntity } from "../models/category.entity";
+import { Category, ICategoryMongo } from "../models/mongoCategory.entity";
 
 export class MongoCategoryRepository implements ICategoryRepository {
     /**

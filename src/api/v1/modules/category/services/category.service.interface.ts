@@ -1,4 +1,5 @@
-import { ICategoryEntity, ICreateCategory, IUpdateCategory } from "../models/category.model.interface";
+import { ICreateCategory, IUpdateCategory } from "../models/category.dto";
+import { ICategoryEntity } from "../models/category.entity";
 
 export interface ICategoryService {
     /**

@@ -1,7 +1,7 @@
 import { IBlogRepository } from "./modules/blog/repositories/blog.repository.interface";
 import { MongoBlogRepository } from "./modules/blog/repositories/mongodb/blog.repository";
 import { ICategoryRepository } from "./modules/category/repositories/category.repository.interface";
-import { MongoCategoryRepository } from "./modules/category/repositories/mongodb/category.repository";
+import { MongoCategoryRepository } from "./modules/category/repositories/MongoCategory.repository";
 import { ICommentRepository } from "./modules/comments/repositories/comment.repository.interface";
 import { CommentRepository } from "./modules/comments/repositories/mongodb/comment.repository";
 import { MongoUserRepository } from "./modules/users/repositories/mongoUser.repository";
